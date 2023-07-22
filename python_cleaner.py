@@ -28,8 +28,9 @@ def get_standard_folder_paths_windows():
     images_folder = os.path.join(os.path.expanduser("~"), "Pictures")
     videos_folder = os.path.join(os.path.expanduser("~"), "Videos")
     music_folder = os.path.join(os.path.expanduser("~"), "Music")
+    downloads_folder = os.path.join(os.path.expanduser("~"), "Downloads")
     
-    return desktop_folder, documents_folder, images_folder, videos_folder, music_folder
+    return desktop_folder, documents_folder, images_folder, videos_folder, music_folder, downloads_folder
 
 def get_standard_folder_paths_mac():
     desktop_folder = os.path.join(os.path.expanduser("~"), "Desktop")
@@ -37,16 +38,17 @@ def get_standard_folder_paths_mac():
     images_folder = os.path.join(os.path.expanduser("~"), "Pictures")
     videos_folder = os.path.join(os.path.expanduser("~"), "Movies")
     music_folder = os.path.join(os.path.expanduser("~"), "Music")
+    downloads_folder = os.path.join(os.path.expanduser("~"), "Downloads")
     
-    return desktop_folder, documents_folder, images_folder, videos_folder, music_folder
+    return desktop_folder, documents_folder, images_folder, videos_folder, music_folder, downloads_folder
 
 if __name__ == "__main__":
     operating_system = input("Enter your operating system (Windows or macOS): ").lower()
 
     if operating_system == "windows":
-        desktop_folder, documents_folder, images_folder, videos_folder, music_folder = get_standard_folder_paths_windows()
+        desktop_folder, documents_folder, images_folder, videos_folder, music_folder, downloads_folder = get_standard_folder_paths_windows()
     elif operating_system == "macos":
-        desktop_folder, documents_folder, images_folder, videos_folder, music_folder = get_standard_folder_paths_mac()
+        desktop_folder, documents_folder, images_folder, videos_folder, music_folder, downloads_folder = get_standard_folder_paths_mac()
     else:
         print("Unsupported operating system. Please provide the paths manually.")
         exit()
@@ -65,3 +67,6 @@ if __name__ == "__main__":
 
     organize_folder_by_extension(music_folder)
     print("Music folder organized successfully!")
+
+    organize_folder_by_extension(downloads_folder)
+    print("Downloads folder organized successfully!")
