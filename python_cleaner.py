@@ -13,7 +13,8 @@ class FileOrganizer:
         return extension.lower()
 
     def create_folder(self, folder_path):
-        os.makedirs(folder_path)
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
 
     def move_file(self, source_file, destination_folder):
         shutil.move(source_file, destination_folder)
@@ -49,12 +50,11 @@ class FileOrganizer:
                     f"Folder '{folder_name}' does not exist in the specified location.")
                 continue
 
-            self.organize_folder_by_extension(self.base_folder)
+            self.organize_folder_by_extension(base_folder)
 
 
 if __name__ == "__main__":
     base_folder = input("Enter the base folder name: ")
-    # base_folder = os.path.join("C:\\Users\\QUERO2\\Desktop\\", x)
 
     print(base_folder)
 
