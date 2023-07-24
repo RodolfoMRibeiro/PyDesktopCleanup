@@ -6,26 +6,35 @@ class FileOrganizer:
     def __init__(self, base_folder):
         self.base_folder = base_folder
         self.standard_folders = [
-            "Pictures", "Videos", "Music"]
+            "Documents", "Pictures", "Videos", "Music"]
 
     def get_extension(self, file_name):
         _, extension = os.path.splitext(file_name)
         return extension.lower()
 
     def create_folder(self, folder_path):
-        os.makedirs(folder_path, exist_ok=True)
+        os.makedirs(folder_path)
 
     def move_file(self, source_file, destination_folder):
         shutil.move(source_file, destination_folder)
 
-    def organize_folder_by_extension(self, folder_path):
-        for filename in os.listdir(folder_path):
-            file_path = os.path.join(folder_path, filename)
+    def organize_folder_by_extension(self, base_folder):
+        for filename in os.listdir(base_folder):
+            file_path = os.path.join(base_folder, filename)
             if os.path.isfile(file_path):
                 extension = self.get_extension(filename)
-                folder_name = extension[1:] if extension else "other"
 
-                destination_folder = os.path.join(folder_path, folder_name)
+                if extension in (".pdf"):
+                    folder_name = "Documents"
+                elif extension in (".mp3"):
+                    folder_name = "Music"
+                elif extension == ".jpg":
+                    folder_name = "Pictures"
+                else:
+                    folder_name = "Videos"
+
+                destination_folder = os.path.join(
+                    self.base_folder, folder_name)
                 self.create_folder(destination_folder)
 
                 destination_file_path = os.path.join(
@@ -40,12 +49,12 @@ class FileOrganizer:
                     f"Folder '{folder_name}' does not exist in the specified location.")
                 continue
 
-            self.organize_folder_by_extension(folder_path)
+            self.organize_folder_by_extension(self.base_folder)
 
 
 if __name__ == "__main__":
-    x = input("Enter the base folder name: ")
-    base_folder = os.path.join("C:\\Users\\QUERO2\\Desktop\\", x)
+    base_folder = input("Enter the base folder name: ")
+    # base_folder = os.path.join("C:\\Users\\QUERO2\\Desktop\\", x)
 
     print(base_folder)
 
